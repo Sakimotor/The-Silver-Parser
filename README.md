@@ -1,5 +1,8 @@
 # The-Silver-Parser
 
+<img src="https://i.imgur.com/07oniKw.png" 
+     alt="The Silver Parser" />
+
 A GUI tool made in Java to make translation of "The Silver Case" easier. Right now, this tools supports any modern version of "The Silver Case". If you use the tool for "The 25Th Ward", it may work technically but you may encounter some glitchy lines because of empty messages left by the developpers (messageEN"" really does harm on my regex). Example :
 <img src="https://i.imgur.com/sdGUphP.png"
      alt="A Great Example"
