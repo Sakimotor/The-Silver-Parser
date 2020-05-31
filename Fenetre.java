@@ -35,11 +35,11 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
         this.table.setFont(new Font("Lucida Sans", Font.BOLD, 15));
         this.table.setSelectionBackground(new Color(190, 190, 190));
         this.table.putClientProperty("terminateEditOnFocusLost", true);
+        model.addColumn("N°");
         model.addColumn("Editable Text");
         JTextField textField = new JTextField();
         textField.setFont(new Font("Verdana", 1, 11));
         DefaultCellEditor dce = new DefaultCellEditor(textField);
-        table.getColumnModel().getColumn(0).setCellEditor(dce);
         this.fenetre.add(table, BorderLayout.CENTER);
         defile = new JScrollPane(table);
         this.valider = new JButton("Apply Changes");
@@ -53,6 +53,7 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
         this.fenetre.add(this.panneau, BorderLayout.SOUTH);
         this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.fenetre.setVisible(true);
+        this.table.getColumn("N°").setMaxWidth(40);        
     }
     public void Affichage() {
         chargerFichier();
@@ -147,9 +148,9 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
         this.texte = lire.getOriginal();
         for (int i = 0; i < this.texte.length ; i++) {
             this.texte[i] = "<html>" + this.texte[i] + "</html>";
-            model.addRow(new Object[]{this.texte[i]});
+            model.addRow(new Object[]{i+1 , this.texte[i]});
             this.table.setRowHeight(150);
-        }        
+        }
     }
     
     public void Ecoute() {
