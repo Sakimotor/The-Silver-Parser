@@ -19,7 +19,7 @@ Once you have executed the  .jar file, follow the instructions and load a file t
 
 **YOU CANNOT LOAD THE .ASSETS FILE DIRECTLY, EXTRACT THE .TXT FILES FROM IT WITH TOOLS SUCH AS [UNITY EX](https://forum.zoneofgames.ru/topic/36240-unityex/) OR [AssetStudio](https://github.com/Perfare/AssetStudio) !**
 
-If you have trouble executing the program, try updating your JDK to Java 11, or compile it yourself for your target system With the following commands (do not forget to create a [manifest](https://docs.oracle.com/javase/tutorial/deployment/jar/manifestindex.html) file that precises "Parser" as the main class for your executable) :
+If you have trouble executing the program, try updating your JDK to Java 11[This link makes it easy to install](https://ninite.com/adoptjavax11/), or compile it yourself for your target system With the following commands (do not forget to create a [manifest](https://docs.oracle.com/javase/tutorial/deployment/jar/manifestindex.html) file that precises "Parser" as the main class for your executable) :
 
 ```bash
 javac *.java
