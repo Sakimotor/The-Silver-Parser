@@ -34,15 +34,15 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
         this.table.setFont(new Font("Lucida Sans", Font.BOLD, 15));
         this.table.setSelectionBackground(new Color(190, 190, 190));
         this.table.putClientProperty("terminateEditOnFocusLost", true);
-        model.addColumn("Texte A modifier");
+        model.addColumn("Editable Text");
         JTextField textField = new JTextField();
         textField.setFont(new Font("Verdana", 1, 11));
         DefaultCellEditor dce = new DefaultCellEditor(textField);
         table.getColumnModel().getColumn(0).setCellEditor(dce);
         this.fenetre.add(table, BorderLayout.CENTER);
         defile = new JScrollPane(table);
-        this.valider = new JButton("Valider les modifications");
-        this.charger = new JButton("Charger un autre fichier");
+        this.valider = new JButton("Apply Changes");
+        this.charger = new JButton("Load File");
         this.fenetre.add(defile);
         this.flowlayout = new FlowLayout(FlowLayout.CENTER);
         this.panneau = new JPanel();
@@ -73,7 +73,7 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
 
                    JFileChooser chooser = new JFileChooser();
                    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                       "Fichiers texte", "txt");
+                       "Text files", "txt");
                    chooser.setFileFilter(filter);
                    int returnVal = chooser.showSaveDialog(null);
                    if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -89,7 +89,7 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
  }
                catch (Exception e) {
                 JOptionPane.showMessageDialog( this,
-                "Veuillez modifier des lignes avant de sauvegarder le fichier", "Attention !", JOptionPane.WARNING_MESSAGE);  
+                "You have to modify the table before saving", "Attention !", JOptionPane.WARNING_MESSAGE);  
                }
             
             }
@@ -104,22 +104,22 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
     public void chargerFichier() {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			"Fichiers texte", "txt");
+			"Text files", "txt");
 		chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
 		while (returnVal != JFileChooser.APPROVE_OPTION) {
-			JOptionPane.showMessageDialog(fenetre,"Veuillez charger un fichier.","Charger fichier",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(fenetre,"Select a file to load.","Loading file",JOptionPane.ERROR_MESSAGE);
 			returnVal = chooser.showOpenDialog(null);
         }
 
-        String[] selecttype = {"Messages","Lieux"};
-        this.type = JOptionPane.showOptionDialog(fenetre,"Quel type de texte voulez-vous traduire ?",
-                "Type de message",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
+        String[] selecttype = {"Messages","Places"};
+        this.type = JOptionPane.showOptionDialog(fenetre,"What kind of text will be translated ?",
+                "Text type",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
                 selecttype,null);
    
-                String[] select = {"Anglais","Japonais"};
-        this.langue = JOptionPane.showOptionDialog(fenetre,"Quelle langue voulez-vous traduire ?",
-                "Choix de Langue",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
+                String[] select = {"English","Japanese"};
+        this.langue = JOptionPane.showOptionDialog(fenetre,"Which language will you translate from ?",
+                "Select Language",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
                 select,null);
         if (this.type == 0)  {
            if (this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".+?(?=\")*\",\"seList\"");
