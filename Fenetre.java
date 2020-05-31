@@ -25,6 +25,7 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
     Lire lire;
     int langue;
     int type;
+    int version;
     public Fenetre() {
         this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.fenetre.setTitle("The Silver Parser");
@@ -111,16 +112,22 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
 			JOptionPane.showMessageDialog(fenetre,"Select a file to load.","Loading file",JOptionPane.ERROR_MESSAGE);
 			returnVal = chooser.showOpenDialog(null);
         }
-
+        String[] selectversion= {"The Silver Case","The 25Th Ward"};
+        this.version = JOptionPane.showOptionDialog(fenetre,"Which game is the text file from ?",
+                "Gamz Version",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
+                selectversion,null);
+        if (this.version == 0) {
         String[] selecttype = {"Messages","Places"};
         this.type = JOptionPane.showOptionDialog(fenetre,"What kind of text will be translated ?",
                 "Text type",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
                 selecttype,null);
-   
+        } else this.type = 0;
                 String[] select = {"English","Japanese"};
         this.langue = JOptionPane.showOptionDialog(fenetre,"Which language will you translate from ?",
                 "Select Language",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
                 select,null);
+
+        if (this.version == 0) {
         if (this.type == 0)  {
            if (this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".+?(?=\")*\",\"seList\"");
            else this.pattern = Pattern.compile("messageJP\":\".+?(?=\")*\",");
@@ -129,7 +136,11 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
             if(this.langue == 0) this.pattern = Pattern.compile("stringEN\":\".+?(?=\")*\"");
             else this.pattern = Pattern.compile("stringJP\":\".+?(?=\")*\"");
     }
-
+        }
+        else {
+            if(this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".+?(?=\")*\",\"seList\"");
+            else this.pattern = Pattern.compile("messageJP\":\".+?(?=\")*\",");
+            }
         this.lire = new Lire(pattern, chooser.getSelectedFile().getPath(), this.langue, this.type);
         System.out.println(chooser.getSelectedFile().getPath());
         lire.Lecture();
