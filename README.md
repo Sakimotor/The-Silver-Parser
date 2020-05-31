@@ -1,6 +1,6 @@
 # The-Silver-Parser
 
-<img src="https://i.imgur.com/07oniKw.png"
+<img src="https://i.imgur.com/qEYwyEo.png"
      alt="The Silver Parser" />
 
 A GUI tool made in Java to make translation of "The Silver Case" easier. Right now, this tools supports any modern version of "The Silver Case".
@@ -22,6 +22,6 @@ Once you have executed the  .jar file, follow the instructions and load a file t
 If you have trouble executing the program, try updating your JDK to Java 11[This link makes it easy to install](https://ninite.com/adoptjavax11/), or compile it yourself for your target system With the following commands (do not forget to create a [manifest](https://docs.oracle.com/javase/tutorial/deployment/jar/manifestindex.html) file that precises "Parser" as the main class for your executable) :
 
 ```bash
-javac *.java
+javac -encoding UTF8 *.java
 jar cmf MANIFEST.MF Parser.jar *.class
 ```

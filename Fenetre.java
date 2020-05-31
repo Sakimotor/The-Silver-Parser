@@ -4,6 +4,7 @@ import javax.swing.filechooser.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.regex.*;
 
 public class Fenetre extends JFrame implements ActionListener, TableModelListener  {
@@ -26,20 +27,28 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
     int langue;
     int type;
     int version;
+    Font police;
     public Fenetre() {
         this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.fenetre.setTitle("The Silver Parser");
         this.fenetre.setMinimumSize(new Dimension(640, 480));
         this.model = new DefaultTableModel();
         this.table = new JTable(model);
-        this.table.setFont(new Font("Lucida Sans", Font.BOLD, 15));
+        try {
+            this.police = Font.createFont(Font.TRUETYPE_FONT, new File("Modaerne.ttf")).deriveFont(70.0f);
+            GraphicsEnvironment ge =
+					GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(this.police);
+		} catch (IOException|FontFormatException e) {
+			//Handle exception
+		}
+        this.table.setFont(this.police);    
         this.table.setSelectionBackground(new Color(190, 190, 190));
         this.table.putClientProperty("terminateEditOnFocusLost", true);
         model.addColumn("N°");
         model.addColumn("Editable Text");
         JTextField textField = new JTextField();
         textField.setFont(new Font("Verdana", 1, 11));
-        DefaultCellEditor dce = new DefaultCellEditor(textField);
         this.fenetre.add(table, BorderLayout.CENTER);
         defile = new JScrollPane(table);
         this.valider = new JButton("Apply Changes");
