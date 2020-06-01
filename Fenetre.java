@@ -90,7 +90,7 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
                    if(returnVal == JFileChooser.APPROVE_OPTION) {
                
                        try{
-                        Remplacement remplacer = new Remplacement(this.texte, this.pattern, lire.getFichierOriginal(), chooser.getSelectedFile().getPath(), this.langue, this.type);
+                        Remplacement remplacer = new Remplacement(this.texte, this.pattern, lire.getFichierOriginal(), chooser.getSelectedFile().getPath(), this.langue, this.type, this.version);
                         remplacer.Remplacer();
                        }
                        catch (Exception e) {
@@ -148,8 +148,8 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
     }
         }
         else {
-            if(this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".+?(?=\")*\",\"seList\"");
-            else this.pattern = Pattern.compile("messageJP\":\".+?(?=\")*\",");
+            if(this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".*?(?=\")*\",\"seList\"");
+            else this.pattern = Pattern.compile("messageJP\":\".*?(?=\")*\",");
             }
         this.lire = new Lire(pattern, chooser.getSelectedFile().getPath(), this.langue, this.type);
         System.out.println(chooser.getSelectedFile().getPath());
