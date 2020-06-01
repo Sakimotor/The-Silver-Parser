@@ -31,7 +31,7 @@ public void Remplacer() {
        else matcher.appendReplacement(buffer,"messageJP\":\"" + this.traduction[compteur] + "\",");
         }
         else {
-            if (this.langue == 0) matcher.appendReplacement(buffer,"stringEN\":\"" + this.traduction[compteur] + ",\"");
+            if (this.langue == 0) matcher.appendReplacement(buffer,"stringEN\":\"" + this.traduction[compteur] + "\"");
             else matcher.appendReplacement(buffer,"stringJP\":\"" + this.traduction[compteur] + ",\"");
             
         }
