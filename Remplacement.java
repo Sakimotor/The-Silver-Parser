@@ -43,9 +43,13 @@ public void Remplacer() {
     this.fichier_traduit = this.fichier_traduit.replace("\\\\\\\\", "\\\\");
     this.fichier_traduit = this.fichier_traduit.replace("\\\\\\", "\\\\");
     this.fichier_traduit = this.fichier_traduit.replaceAll(",\"}", "\"}");
+    this.fichier_traduit = this.fichier_traduit.replace("\\\\\"", "\\\"");
     if (this.version !=0)  {
         this.fichier_traduit = this.fichier_traduit.replaceAll("Dic\":\\{", "Dic\":\\{\n");
         this.fichier_traduit = this.fichier_traduit.replaceAll("},", "},\n");
+    }
+    else {
+        this.fichier_traduit = this.fichier_traduit.replace(":true}},", ":true}},\n");
     }
     Ecrire ecrire = new Ecrire(this.fichier_traduit, this.voie, this.fenetre);
     ecrire.Ecriture();
