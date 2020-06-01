@@ -7,11 +7,6 @@ A GUI tool made in Java to make translation of "The Silver Case" easier. Right n
 <img src="https://i.imgur.com/qEYwyEo.png"
      alt="The Silver Parser" />
 
- Example :
-<img src="https://i.imgur.com/sdGUphP.png"
-     alt="A Great Example"
-     style="float: left; margin-right: 10px;" />
-
 ## How To Use
 
 Go to the [Releases](https://github.com/Sakimotor/The-Silver-Parser/releases) tab, then download the latest .jar release file.
