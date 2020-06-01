@@ -90,7 +90,7 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
                    if(returnVal == JFileChooser.APPROVE_OPTION) {
                
                        try{
-                        Remplacement remplacer = new Remplacement(this.texte, this.pattern, lire.getFichierOriginal(), chooser.getSelectedFile().getPath(), this.langue, this.type, this.version);
+                        Remplacement remplacer = new Remplacement(this.texte, this.pattern, lire.getFichierOriginal(), chooser.getSelectedFile().getPath(), this.langue, this.type, this.version, this.fenetre);
                         remplacer.Remplacer();
                        }
                        catch (Exception e) {

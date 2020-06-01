@@ -1,5 +1,7 @@
 import java.util.regex.*;
 
+import javax.swing.JFrame;
+
 public class Remplacement {
 String[] traduction;
 Pattern pattern;
@@ -9,7 +11,8 @@ String fichier_traduit;
 int langue;
 int type;
 int version;
-public Remplacement(String[] t, Pattern p, String s, String  v, int l, int c, int d) {
+JFrame fenetre;
+public Remplacement(String[] t, Pattern p, String s, String  v, int l, int c, int d, JFrame f) {
     this.traduction = t;
     this.pattern = p;
     this.matcher = pattern.matcher(s);
@@ -44,7 +47,7 @@ public void Remplacer() {
         this.fichier_traduit = this.fichier_traduit.replaceAll("Dic\":\\{", "Dic\":\\{\n");
         this.fichier_traduit = this.fichier_traduit.replaceAll("},", "},\n");
     }
-    Ecrire ecrire = new Ecrire(this.fichier_traduit, this.voie);
+    Ecrire ecrire = new Ecrire(this.fichier_traduit, this.voie, this.fenetre);
     ecrire.Ecriture();
 }
 }
