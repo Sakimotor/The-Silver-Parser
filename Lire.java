@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.regex.*;
-
+    /**
+     * This class reads a text file and parses the messages from it
+     */
 public class Lire {
     String[] original;
     String fichier_original;
@@ -9,12 +11,22 @@ public class Lire {
     String nomfichier;
     int langue;
     int type;
+     /**
+     * Constructor
+     * @param p the regex pattern used to match  the sentences
+     * @param f the file's location and name
+     * @param l a variable used to know which language will be read
+     * @param t a variable used to known which game the file comes from
+     */
     public Lire(Pattern p, String f, int l, int t) {
         this.pattern = p;
         this.nomfichier = f;
         this.langue = l;
         this.type = t;
     }
+    /**
+     * This method handles the reading process
+     */
     public  void Lecture() {
         StringBuilder texte = new StringBuilder();    
         try {
@@ -62,10 +74,17 @@ public class Lire {
             texte.append("fichier inexistant");    }
     
         }
-
+    /**
+     * This method is used to transmit the untouched messages
+     * @return A string array containing the messages;
+     */
         public String[] getOriginal() {
             return this.original;
         }
+     /**
+     * This method is used to transmit the untouched messages as a single string
+     * @return A string containing the messages;
+     */
         public String getFichierOriginal() {
             return this.fichier_original;
         }

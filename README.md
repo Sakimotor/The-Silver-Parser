@@ -20,3 +20,15 @@ If you have trouble executing the program, try updating your JDK to Java 11[This
 javac -encoding UTF8 *.java
 jar cmf MANIFEST.MF Parser.jar *.class
 ```
+
+## For Developers
+
+I've made a javadoc for my program. If you need to read it, use the following command :
+
+```bash
+javadoc -encoding UTF8 *.java
+```
+
+It will make a bunch of files, some of them being html files you will be able to open with your favorite web browser ! I would recommend opening the "index-all.html" file if you need informations about any class or method.
+
+

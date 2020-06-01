@@ -4,14 +4,14 @@ import javax.swing.filechooser.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.regex.*;
 
+
+/**
+     * This class is used  for the JFrame.
+     */
 public class Fenetre extends JFrame implements ActionListener, TableModelListener  {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private JFrame fenetre = new JFrame("The Silver Parser");
     String[] texte;
@@ -27,6 +27,11 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
     int langue;
     int type;
     int version;
+
+    
+    /**
+     * Constructor
+     */
     public Fenetre() {
         this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.fenetre.setTitle("The Silver Parser");
@@ -54,16 +59,23 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
         this.fenetre.setVisible(true);
         this.table.getColumn("N°").setMaxWidth(40);        
     }
+
+    /**
+     * Method that handles the whole JFrame by calling the methods <b> chargerFichier() </b> then <b> Ecoute() </b> 
+     */
     public void Affichage() {
         chargerFichier();
         Ecoute();
     }
-
+    /**
+     * This method is required to implement a TableModelListener
+     */
     public void tableChanged(TableModelEvent e) {
-          //J'ARRIVE A RIEN PUTAIN ALED
         }
 
-
+            /**
+             * This method is required to implement an ActionListener
+             */
         public void actionPerformed( ActionEvent evt ) {
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
@@ -101,7 +113,9 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
             }		
         }
     
-
+            /**
+             * This method loads a file into the JTable
+             */
     public void chargerFichier() {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -146,13 +160,12 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
             this.table.setRowHeight(150);
         }
     }
-    
+            /**
+             * This method handles the Listeners
+             */
     public void Ecoute() {
         this.valider.addActionListener(this);
         this.charger.addActionListener(this);
         this.model.addTableModelListener(this);
-    }
-    public String[] getText() {
-        return this.texte;
     }
 }
