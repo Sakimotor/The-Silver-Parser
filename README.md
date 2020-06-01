@@ -2,7 +2,7 @@
 
 
 
-A GUI tool made in Java to make translation of "The Silver Case" easier. Right now, this tools supports any modern version of "The Silver Case", as well as it's sequel, "The 25Th Ward: The Silver Case".
+A GUI tool made in Java to make translation of "The Silver Case" easier. Right now, this tool supports any modern version of "The Silver Case", as well as it's sequel, "The 25Th Ward: The Silver Case".
 
 <img src="https://i.imgur.com/qEYwyEo.png"
      alt="The Silver Parser" />
