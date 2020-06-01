@@ -10,7 +10,7 @@ A GUI tool made in Java to facilitate your journey through the .txt files from t
 ## How To Use
 
 Go to the [Releases](https://github.com/Sakimotor/The-Silver-Parser/releases) tab, then download the latest .jar release file.
-Once you have executed the  .jar file, follow the instructions and load a file to translate. The first time you load a text file, the table may take some time to fully load, so if your Table is empty after loading a file, please wait up to a minute.
+Once you have executed the  .jar file, follow the instructions and load a file to start reading/editing the game dialogs/places. The first time you load a text file, the table may take some time to fully load, so if your Table is empty after loading a file, please wait up to a minute.
 
 **YOU CANNOT LOAD THE .ASSETS FILE DIRECTLY, EXTRACT THE .TXT FILES FROM IT WITH TOOLS SUCH AS [UNITY EX](https://forum.zoneofgames.ru/topic/36240-unityex/) OR [AssetStudio](https://github.com/Perfare/AssetStudio) !**
 
