@@ -137,20 +137,15 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
                 "Select Language",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
                 select,null);
 
-        if (this.version == 0) {
         if (this.type == 0)  {
-           if (this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".+?(?=\")*\",\"seList\"");
-           else this.pattern = Pattern.compile("messageJP\":\".+?(?=\")*\",");
-        }
+                if(this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".*?(?=\")*\",\"seList\"");
+                else this.pattern = Pattern.compile("messageJP\":\".*?(?=\")*\",");
+                }
         else { 
-            if(this.langue == 0) this.pattern = Pattern.compile("stringEN\":\".+?(?=\")*\"");
-            else this.pattern = Pattern.compile("stringJP\":\".+?(?=\")*\"");
-    }
-        }
-        else {
-            if(this.langue == 0) this.pattern = Pattern.compile("messageEN\":\".*?(?=\")*\",\"seList\"");
-            else this.pattern = Pattern.compile("messageJP\":\".*?(?=\")*\",");
+                if(this.langue == 0) this.pattern = Pattern.compile("stringEN\":\".+?(?=\")*\"");
+                else this.pattern = Pattern.compile("stringJP\":\".+?(?=\")*\"");
             }
+
         this.lire = new Lire(pattern, chooser.getSelectedFile().getPath(), this.langue, this.type);
         System.out.println(chooser.getSelectedFile().getPath());
         lire.Lecture();
