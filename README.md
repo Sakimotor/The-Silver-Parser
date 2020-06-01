@@ -21,6 +21,8 @@ javac -encoding UTF8 *.java
 jar cmf MANIFEST.MF Parser.jar *.class
 ```
 
+Last note, while editing the text you may notice there are &lt;html&gt; and &lt;\\html&gt; tags. **DO NOT TOUCH THEM** ! They are required in order for long strings to be displayed on multiple lines in the table. They are removed during the file saving process so nevermind them.
+
 ## For Developers
 
 I've made a javadoc for my program. If you need to read it, use the following command :
