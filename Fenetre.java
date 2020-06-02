@@ -66,15 +66,6 @@ public class Fenetre extends JFrame {
         chargerFichier();
         Ecoute();
     }
-    /**
-     * This method is required to implement a TableModelListener
-     */
-  
-            /**
-             * This method is required to implement an ActionListener
-             */
-
-    
             /**
              * This method loads a file into the JTable
              */
