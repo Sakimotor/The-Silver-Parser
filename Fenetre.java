@@ -1,16 +1,14 @@
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.filechooser.*;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.regex.*;
 
 
 /**
      * This class is used  for the JFrame.
      */
-public class Fenetre extends JFrame implements ActionListener, TableModelListener  {
+public class Fenetre extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JFrame fenetre = new JFrame("The Silver Parser");
@@ -27,6 +25,7 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
     int langue;
     int type;
     int version;
+    ActionListen listen;
 
     
     /**
@@ -70,48 +69,11 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
     /**
      * This method is required to implement a TableModelListener
      */
-    public void tableChanged(TableModelEvent e) {
-        }
-
+  
             /**
              * This method is required to implement an ActionListener
              */
-        public void actionPerformed( ActionEvent evt ) {
-            int row = table.getSelectedRow();
-            int column = table.getSelectedColumn();
-    
-            if ( evt.getSource() == this.valider ) {
-               try { 
-                   this.texte[row] = String.valueOf( table.getValueAt(row,column) );
 
-                   JFileChooser chooser = new JFileChooser();
-                   FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                       "Text files", "txt");
-                   chooser.setFileFilter(filter);
-                   int returnVal = chooser.showSaveDialog(null);
-                   if(returnVal == JFileChooser.APPROVE_OPTION) {
-               
-                       try{
-                        Remplacement remplacer = new Remplacement(this.texte, this.pattern, lire.getFichierOriginal(), chooser.getSelectedFile().getPath(), this.langue, this.type, this.version, this.fenetre);
-                        remplacer.Remplacer();
-                       }
-                       catch (Exception e) {
-                           e.printStackTrace();
-                       }
-                   }
- }
-               catch (Exception e) {
-                JOptionPane.showMessageDialog( this,
-                "You have to modify the table before saving", "Attention !", JOptionPane.WARNING_MESSAGE);  
-               }
-            
-            }
-            else if (evt.getSource() == this.charger) {
-               this.fenetre.dispose();
-               Fenetre afficher = new Fenetre();
-               afficher.Affichage();
-            }		
-        }
     
             /**
              * This method loads a file into the JTable
@@ -164,8 +126,8 @@ public class Fenetre extends JFrame implements ActionListener, TableModelListene
              * This method handles the Listeners
              */
     public void Ecoute() {
-        this.valider.addActionListener(this);
-        this.charger.addActionListener(this);
-        this.model.addTableModelListener(this);
+        this.listen = new ActionListen(this.table, this.fenetre, this.texte, this.valider,  this.charger, this.pattern, this.lire, this.langue, this.type, this.version);
+        this.valider.addActionListener(this.listen);
+        this.charger.addActionListener(this.listen);
     }
 }
