@@ -10,8 +10,8 @@ A GUI tool made in Java/Python to facilitate your journey through the .txt files
 <td><img src="https://i.imgur.com/lAc9HJO.png"alt="Python Version" width="1000" /> </td>
 </tr>
 <tr>
-	<td>Java Version </td>
-	<td>Python Version </td>
+	<td style="text-align: center;">Java Version </td>
+	<td style="text-align: center;">Python Version </td>
 </tr>	
 </table>
 
