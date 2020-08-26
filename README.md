@@ -4,9 +4,12 @@
 
 A GUI tool made in Java/Python to facilitate your journey through the .txt files from the games "The Silver Case" and "The 25Th Ward: The Silver Case".
 
-
-<img src="https://i.imgur.com/qEYwyEo.png" alt="Java Version"  width="500"/> <img src="https://i.imgur.com/lAc9HJO.png"alt="Python Version" width="500" />
-
+<table>
+<tr>
+<td><img src="https://i.imgur.com/qEYwyEo.png" alt="Java Version"  width="500"/> </td>
+<td><img src="https://i.imgur.com/lAc9HJO.png"alt="Python Version" width="500" /> </td>
+</tr>
+</table>
 
 ## Requirements
 
