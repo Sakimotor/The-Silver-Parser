@@ -6,8 +6,8 @@ A GUI tool made in Java/Python to facilitate your journey through the .txt files
 
 <table>
 <tr>
-<td><img src="https://i.imgur.com/qEYwyEo.png" alt="Java Version"  height="1000"/> </td>
-<td><img src="https://i.imgur.com/lAc9HJO.png"alt="Python Version" height="1000" /> </td>
+<td><img src="https://i.imgur.com/qEYwyEo.png" alt="Java Version"  width="800"/> </td>
+<td><img src="https://i.imgur.com/lAc9HJO.png"alt="Python Version" width="500" /> </td>
 </tr>
 </table>
 
