@@ -39,7 +39,7 @@ Once you have executed the file, follow the instructions and load a file to star
 
 In case you can't launch the .py file, make sure you meet the Requirements.
 
-If you want to compile the program into an executable yourself, feel free to follow [this guide](https://pythonbasics.org/compile-pyqt-to-exe/)
+If you want to compile the program into an executable yourself, feel free to follow [this guide](https://github.com/mherrmann/fbs-tutorial)
 
 ## Java Troubleshooting
 
