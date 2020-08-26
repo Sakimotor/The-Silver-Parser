@@ -21,7 +21,7 @@ Java version :
 
 - [Java 11](https://ninite.com/adoptjavax11/)
 
-Python (.py file version): 
+Python version: 
 
 - [Python3](https://www.python.org/downloads/)
 - [PyQt](https://pypi.org/project/PyQt5/)
@@ -29,7 +29,7 @@ Python (.py file version):
 
 ## How To Use
 
-Go to the [Releases](https://github.com/Sakimotor/The-Silver-Parser/releases) tab, then download the latest .jar or .exe release file.
+Go to the [Releases](https://github.com/Sakimotor/The-Silver-Parser/releases) tab, then download the latest .jar or .py release file.
 Once you have executed the file, follow the instructions and load a file to start reading/editing the game dialogs/places. The first time you load a text file, the table may take some time to fully load, so if your Table is empty after loading a file, please wait up to a minute. Also, if it's your first time using Java or Python, don't forget to add them to your OS' Path [(for Java)](https://help.talend.com/reader/nvbM6kBZltEAlPPDszEwUA/mTSf7z1s7egd5xs6r_vhDw) and [(for Python)](https://datatofish.com/add-python-to-windows-path/)
 
 **YOU CANNOT LOAD THE .ASSETS FILE DIRECTLY, EXTRACT THE .TXT FILES FROM IT WITH TOOLS SUCH AS [UNITY EX](https://forum.zoneofgames.ru/topic/36240-unityex/) OR [AssetStudio](https://github.com/Perfare/AssetStudio) !**
@@ -39,7 +39,7 @@ Once you have executed the file, follow the instructions and load a file to star
 
 In case you can't launch the .py file, make sure you meet the Requirements.
 
-If you want to compile the program into an executable yourself, feel free to follow [this guide](https://github.com/mherrmann/fbs-tutorial)
+If you want to compile the program into an executable, feel free to follow [this guide](https://github.com/mherrmann/fbs-tutorial)
 
 ## Java Troubleshooting
 
@@ -66,4 +66,4 @@ It will make a bunch of files, some of them being html files you will be able to
 
 ## What's Next ?
 
-PyQt version ? 👀
+I don't know !

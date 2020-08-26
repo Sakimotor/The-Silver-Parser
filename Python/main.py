@@ -204,7 +204,7 @@ class Window(QWidget):
         place.activated[str].connect(self.changePlace)
         layout2.setAlignment(QtCore.Qt.AlignCenter)
         self.buttonsWidget2.setLayout(layout2)
-    	    
+            
 
     def changeLanguage(self, language):
         self.language = language
