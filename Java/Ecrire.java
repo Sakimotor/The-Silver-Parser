@@ -35,7 +35,6 @@ public class Ecrire {
                 "The file has been saved", "Success !", JOptionPane.INFORMATION_MESSAGE);  
         }
         catch (Exception e) {
-            logger.log("erreur");
             JOptionPane.showMessageDialog( this.fenetre,
                 "The file has not been saved", "Error !", JOptionPane.ERROR_MESSAGE);  
         }
