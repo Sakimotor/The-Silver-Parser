@@ -143,26 +143,26 @@ class Window(QWidget):
             if self.place == 'Messages':
                 if self.language == 'English':    
                     for m in range(0, len(content)):
-                        content_sub = re.sub("messageEN\":\".*?(?=\")*\",\"seList\"", "messageENG\":\"" + str(content[m]) + "\",\"seList\"", content_sub, 1) 
+                        content_sub = re.sub("messageEN\":\".*?(?=\")*\",\"seList\"", "messageENG\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\",\"seList\"", content_sub, 1) 
                     content_sub = re.sub("messageENG", "messageEN", content_sub)
                 else:
                     for m in range(0, len(content)):
-                        content_sub = re.sub("messageJP\":\".*?(?=\")*\",", "messageJPN\":\"" + str(content[m]) + "\",", content_sub, 1) 
+                        content_sub = re.sub("messageJP\":\".*?(?=\")*\",", "messageJPN\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\",", content_sub, 1) 
                     content_sub = re.sub("messageJPN", "messageJP", content_sub)
 
             else:
                 if self.language == 'English':    
                     for m in range(0, len(content)):
-                        content_sub = re.sub("stringEN\":\".*?(?=\")*\"", "stringENG\":\"" + str(content[m]) + "\"", content_sub, 1) 
+                        content_sub = re.sub("stringEN\":\".*?(?=\")*\"", "stringENG\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\"", content_sub, 1) 
                     content_sub = re.sub("stringENG", "stringEN", content_sub)
                 else:
                     for m in range(0, len(content)):
-                        content_sub = re.sub("stringJP\":\".*?(?=\")*\"", "stringJPN\":\"" + str(content[m]) + "\"", content_sub, 1) 
+                        content_sub = re.sub("stringJP\":\".*?(?=\")*\"", "stringJPN\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\"", content_sub, 1) 
                     content_sub = re.sub("stringJPN", "stringJP", content_sub)
                         
 
-            content_sub = re.sub("\\['?", "", content_sub)
-            content_sub = re.sub("'?\\]", "", content_sub)
+            content_sub = re.sub("\"\"", "\"", content_sub)
+            content_sub = content_sub.replace("\\\'", "\'")
             saved_file = open(fileName, "w", encoding="utf-8")
             saved_file.write(content_sub)
 
