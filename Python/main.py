@@ -4,10 +4,16 @@ from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
 		QDial, QDialog, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
 		QProgressBar, QPushButton, QRadioButton, QScrollBar, QSizePolicy,
 		QSlider, QSpinBox, QStyleFactory, QTableWidget, QTabWidget, QTextEdit,
-		QVBoxLayout, QWidget, QAbstractScrollArea, QTableWidgetItem, QHeaderView, QStackedLayout, QInputDialog, QFileDialog, QMessageBox)
+		QVBoxLayout, QWidget, QAbstractScrollArea, QTableWidgetItem, QHeaderView, QStackedLayout, QInputDialog, QFileDialog, QMessageBox, QStyledItemDelegate)
 import sys
 import re
 import os
+import json
+
+# https://learndataanalysis.org/make-certain-rows-or-columns-read-only-on-a-table-widget-in-pyqt5/
+class ReadOnlyDelegate(QStyledItemDelegate):
+	def createEditor(self, parent, option, index):
+		return 
 
 
 class Window(QWidget):
@@ -40,15 +46,18 @@ class Window(QWidget):
 		self.setGeometry(self.top, self.left, self.width, self.height)
 
 	def creatingTables(self):
-		# Définition des propriétés du tableau
+		# Defining table proprieties
 		self.tableWidget = QTableWidget()
 		self.tableWidget.setRowCount(0)
-		self.tableWidget.setColumnCount(1)
-		self.tableWidget.setHorizontalHeaderLabels(['Text'])
+		self.tableWidget.setColumnCount(2)
+		self.tableWidget.setHorizontalHeaderLabels(['ID', 'Text'])
 		self.tableWidget.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+		delegate = ReadOnlyDelegate(self)
+		self.tableWidget.setItemDelegateForColumn(0, delegate)
 		# Mise en page du tableau
 		header = self.tableWidget.horizontalHeader()   
-		header.setSectionResizeMode(0, QHeaderView.Stretch)
+		header.setStretchLastSection(True)
+
 		header2 = self.tableWidget.verticalHeader()
 		header2.setSectionResizeMode(QHeaderView.ResizeToContents)   
 
@@ -57,25 +66,23 @@ class Window(QWidget):
 	def loadFile(self):
 		options = QFileDialog.Options()
 		options |= QFileDialog.DontUseNativeDialog
-		fileName, _ = QFileDialog.getOpenFileName(self,"Loading File", "","Game Files (*.txt);;All Files (*)", options=options)
+		# Open the JSON file
+		fileName, _ = QFileDialog.getOpenFileName(self,"Loading File", "","Game Files (*.txt);;Game Files (*.json);;All Files (*)", options=options)
 		if fileName:
 			self.filePath = fileName
 			if self.tableWidget.rowCount() > 0:
 				self.tableWidget.setRowCount(0)
 			self.file = open(fileName, "r", encoding="utf-8")
-			content_ori = self.file.read()
+			# Define the dictionnaries that will stock the data we want form JSON
+			self.jayson = json.load(self.file)
+			self.messages = self.jayson["dic"]
+			self.places = self.jayson["stringDic"]
 			self.file.close()
-			self.content_ori = content_ori
-			content_list = re.findall("messageEN\":\".*?(?=\")*\",\"seList\"", self.content_ori)
-			content = '\n'.join(content_list)
-			content_regex = re.sub("(?<!\\\\)\\\"", "", content)
-			content_regex = re.sub("messageEN:", "", content_regex)
-			content_regex = re.sub(",seList", "", content_regex)
-			content_final = re.split("\n", content_regex)
 			i = 0
-			for n in content_final:
+			for id in self.messages:
 				self.tableWidget.insertRow(i)
-				self.tableWidget.setItem(i, 0, QTableWidgetItem(n))
+				self.tableWidget.setItem(i, 1, QTableWidgetItem(self.messages[id]['messageEN']))
+				self.tableWidget.setItem(i, 0, QTableWidgetItem(id))
 				i += 1
 		else:
 			if self.filePath:
@@ -84,96 +91,86 @@ class Window(QWidget):
 				self.loadFile()		
 
 	def reloadFile(self):
+			# Reset the whole table
 			if self.tableWidget.rowCount() > 0:
 				self.tableWidget.setRowCount(0)
-			self.file = open(self.filePath, "r", encoding="utf-8")
-			content_ori = self.file.read()
-			self.file.close()
-			self.content_ori = content_ori
-			if self.place == 'Messages':
-				if self.language == 'English':
-					content_list = re.findall("messageEN\":\".*?(?=\")*\",\"seList\"", self.content_ori)
-					content = '\n'.join(content_list)
-					content_regex = re.sub("(?<!\\\\)\\\"", "", content)
-					content_regex = re.sub("messageEN:", "", content_regex)
-					content_regex = re.sub(",seList", "", content_regex)
-					content_final = re.split("\n", content_regex)
-
-				else:
-					content_list = re.findall("messageJP\":\".*?(?=\")*\",", self.content_ori)
-					content = '\n'.join(content_list)
-					content_regex = re.sub("(?<!\\\\)\\\"", "", content)
-					content_regex = re.sub("messageJP:", "", content_regex)
-					content_regex = re.sub(",", "", content_regex)
-					content_final = re.split("\n", content_regex)					
-
-
-			else:
-				if self.language == 'English':
-					content_list = re.findall("stringEN\":\".+?(?=\")*\"", self.content_ori)
-					content = '\n'.join(content_list)
-					content_regex = re.sub("\\\"", "", content)
-					content_regex = re.sub("stringEN:", "", content_regex)
-					content_final = re.split("\n", content_regex)
-				else:
-					content_list = re.findall("stringJP\":\".+?(?=\")*\"", self.content_ori)
-					content = '\n'.join(content_list)
-					content_regex = re.sub("\\\"", "", content)
-					content_regex = re.sub("stringJP:", "", content_regex)
-					content_final = re.split("\n", content_regex)			   
-
-
 			i = 0
-			for n in content_final:
-				self.tableWidget.insertRow(i)
-				self.tableWidget.setItem(i, 0, QTableWidgetItem(n))
-				i += 1						
-
-	def saveFile(self):
-		options = QFileDialog.Options()
-		options |= QFileDialog.DontUseNativeDialog
-		fileName, _ = QFileDialog.getSaveFileName(self,"Saving File", "","Game Files (*.txt)", options=options)
-		if fileName:
-			if fileName.endswith(".txt") == False:
-				fileName += ".txt"
-				if QFile.exists(fileName):	
-					if QMessageBox.Yes != QMessageBox.question(NULL, "", "Confirm overwrite?", QMessageBox.Yes | QMessageBox.No):
-						fileName.clear();
-	  
-	
-			content = []
-			for n in range(0, self.tableWidget.rowCount()):
-				content.append([])
-				content[n].append(self.tableWidget.item(n, 0).text())
-			content_sub = self.content_ori
+			# Display the values accordingly to what we want
 			if self.place == 'Messages':
-				if self.language == 'English':	
-					for m in range(0, len(content)):
-						content_sub = re.sub("messageEN\":\".*?(?=\")*\",\"seList\"", "messageENG\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\",\"seList\"", content_sub, 1) 
-					content_sub = re.sub("messageENG", "messageEN", content_sub)
+				if self.language == 'English':
+					for id in self.messages:
+						self.tableWidget.insertRow(i)
+						self.tableWidget.setItem(i, 1, QTableWidgetItem(self.messages[id]['messageEN']))
+						self.tableWidget.setItem(i, 0, QTableWidgetItem(id))
+						i += 1
 				else:
-					for m in range(0, len(content)):
-						content_sub = re.sub("messageJP\":\".*?(?=\")*\",", "messageJPN\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\",", content_sub, 1) 
-					content_sub = re.sub("messageJPN", "messageJP", content_sub)
+					for id in self.messages:
+						self.tableWidget.insertRow(i)
+						self.tableWidget.setItem(i, 1, QTableWidgetItem(self.messages[id]['messageJP']))
+						self.tableWidget.setItem(i, 0, QTableWidgetItem(id))
+						i += 1					
 
 			else:
-				if self.language == 'English':	
-					for m in range(0, len(content)):
-						content_sub = re.sub("stringEN\":\".*?(?=\")*\"", "stringENG\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\"", content_sub, 1) 
-					content_sub = re.sub("stringENG", "stringEN", content_sub)
+				if self.language == 'English':
+					for id in self.places:
+						self.tableWidget.insertRow(i)
+						self.tableWidget.setItem(i, 1, QTableWidgetItem(self.places[id]['stringEN']))
+						self.tableWidget.setItem(i, 0, QTableWidgetItem(id))
+						i += 1
 				else:
-					for m in range(0, len(content)):
-						content_sub = re.sub("stringJP\":\".*?(?=\")*\"", "stringJPN\":\"" + re.sub(r"(\[(\'|\")|(\'|\")\])", "",str(content[m])) + "\"", content_sub, 1) 
-					content_sub = re.sub("stringJPN", "stringJP", content_sub)
+					for id in self.places:
+						self.tableWidget.insertRow(i)
+						self.tableWidget.setItem(i, 1, QTableWidgetItem(self.places[id]['stringJP']))
+						self.tableWidget.setItem(i, 0, QTableWidgetItem(id))
+						i += 1		   
+
+
 						
 
-			content_sub = re.sub("\"\"", "\"", content_sub)
-			content_sub = content_sub.replace("\\\'", "\'")
-			saved_file = open(fileName, "w", encoding="utf-8")
-			saved_file.write(content_sub)
+	def saveFile(self):
+		# Select where we save the end file
+		options = QFileDialog.Options()
+		options |= QFileDialog.DontUseNativeDialog
+		fileName, _ = QFileDialog.getSaveFileName(self,"Saving File", "","Game Files (*.txt);;Game Files (*.json)", options=options)
+		if fileName:
+			#Verify that the file ends with the right extension
+			if (fileName.endswith(".txt") == False) and (fileName.endswith(".json") == False) :
+				fileName += ".txt"
+				if (QFile.exists(fileName)) and (QMessageBox.Yes != QMessageBox.question(self, "", "Confirm overwrite?", QMessageBox.Yes | QMessageBox.No)):
+					return None 
+	  
+	
+			# Replace the JSON values by the ones in the table
+			content = {}
+			for n in range(0, self.tableWidget.rowCount()):
+				content[self.tableWidget.item(n, 0).text()] = self.tableWidget.item(n, 1).text()
+			if self.place == 'Messages':
+				if self.language == 'English':	
+					for id in content:
+						self.messages[id]['messageEN'] = content[id]
+				else:
+					for id in content:
+						self.messages[id]['messageJP'] = content[id]
+
+			else:
+				if self.language == 'English':	
+					for id in content:
+						self.places[id]['stringEN'] = content[id]
+				else:
+					for id in content:
+						self.places[id]['stringJP'] = content[id]
+						
+
+			self.jayson['dic'] = self.messages
+			self.jayson['stringDic'] = self.places
+			# Save the result
+			saved_file = open(fileName, "w", encoding='utf-8')
+			json.dump(self.jayson, saved_file, ensure_ascii=False, separators=(',', ':'))
+			saved_file.close()
 
 
 	def creatingButtons(self):
+		# More GUI stuff
 		self.buttonsWidget = QGroupBox()
 		loadButton = QPushButton("Load File")
 		loadButton.setDefault(True)
@@ -189,7 +186,7 @@ class Window(QWidget):
 		layout.setAlignment(QtCore.Qt.AlignCenter)
 		self.buttonsWidget.setLayout(layout)
 
-
+		# Still the GUI
 		self.buttonsWidget2 = QGroupBox()
 		language = QComboBox()
 		language.addItems(['English', 'Japanese'])

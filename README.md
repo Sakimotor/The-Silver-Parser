@@ -4,7 +4,7 @@
 
 A GUI tool made in Java/Python to facilitate your journey through the .txt files from the games "The Silver Case" and "The 25Th Ward: The Silver Case".
 
-**Recommended version : Python**
+**Recommended version : Python** (Java uses regex from when I had close to no IT experience,  Python parses JSON in a convenient and flawless way)
 
 <table>
 <tr>
